@@ -1,0 +1,74 @@
+---
+title: "Week 11 - Spotify's Discover Weekly Recommender Systems"
+author: "Emilie M Bolduc"
+date: "11/12/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Assignment
+
+Your task is to analyze an existing recommender system that you find interesting.  You should:
+
+1. Perform a Scenario Design analysis as described below.  Consider whether it makes sense for your selected recommender system to perform scenario design twice, once for the organization (e.g. Amazon.com) and once for the organization's customers.
+2. Attempt to reverse engineer what you can about the site, from the site interface and any available information that you can find on the Internet or elsewhere.
+3. Include specific recommendations about how to improve the site's recommendation capabilities going forward. 
+4. Create your report using an R Markdown file, and create a discussion thread with a link to the GitHub repo where your Markdown file notebook resides.  You are not expected to need to write code for this discussion assignment.
+
+
+## Solution
+
+### Spotify's Discover Weekly Playlist
+```{r spotify discover weeekly, echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("/Users/emiliembolduc/CUNY Data 607/Week 11 - Recommender Systems/DiscoverWeekly.png")
+grid.raster(img)
+```
+
+Being an ardent music lover, I’m always interested in finding new music. Fifteen years ago, my sources for new music were UPenn’s WXPN college radio station and friends’ mixes, then Pitchfork’s blog and Pandora. I briefly entertained other streaming music models, like iHeartRadio, Apple Music, and SoundCloud. 
+
+Since 2010, I’ve primarily been using Spotify for listening to music. Over the past year, I’ve been impressed by Spotify’s Discover Weekly playlists – to the point that I look forward to them every Monday. 
+
+Spotify’s Discover Weekly is a playlist made up of 30 personalized songs, which may include new releases, b-sides, deep cuts, occasionally some throw-backs, and is updated for each user every Monday. 
+
+### How the Recommender System Works
+Spotify uses a recommender system that is, “known as an ensemble method—a collection of models of which collaborative filtering is a member of.”[^1] This ensemble method also helps address the "cold start" problem, when there is a new user with no previous music preference user data. Galvanize illustrates Spotify's data flow quite well:
+```{r spotify discover weeekly data flow, echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("/Users/emiliembolduc/CUNY Data 607/Week 11 - Recommender Systems/DiscoverWeeklyDataFlow.png")
+grid.raster(img)
+```
+```
+
+Spotify's Discover Weekly sophisticated algorithm includes:[^1]  
+
+1. Collaborative filtering algorithm that finds users who are similiar to each other based on their listening history - songs they have both listened to - and recommends songs that one has listened to the other 
+2. Convolutional nueral network run over the acoustics of a song to determine songs that have similar acoustic patterns 
+3. Takes Word2Vec, which is a natural language processing technique mathematically representing the implicit assocations and relationships between words, and applies it to playlists - treating them like a paragraph or a big block of text and each song in the playlist as a individual word. 
+4. Outlier detection, to differentiate if a user is listening to a song one-off, or is it a normal patter/behavior.
+5. And most interestingly, how the user liked or listened to the songs in the previous week’s Discover Weekly playlist.[^2]
+
+### Scenario Design Analysis on Spotify
+#### Target Users
+Spotify has over 140 million active users (as of June 2017), with over 60 million subscribing users (as of July 2017) in over 61 countries. [^3]  Spotify brings “the right music for every moment” – on computers, phones, tablets, home entertainment systems, cars, and more. 
+
+I imagine that when Spotify first started, their target users were younger generations who were comfortable with new technologies and streaming music, rather than buying and listening to music through iTunes, CDs, etc. But now most generations are familiar to listening to music from streaming models as Pandora, Apple Music, Google Play, and Amazon all entered the streaming music market. 
+
+#### Spotify's Key Goals
+Spotify is trying to capture the streaming music market from competitors listed above. With Spotify’s Discover Weekly playlist, Spotify uploads a new playlist every Monday to give users an incentive to logon to Spotify weekly to listen to new music – to be engaged in Spotify. 
+
+Spotify wants users to become engaged in Spotify to the point that they will sign up to become paid subscribers. 
+
+#### Recommendations - What Would Help Them Accomplish Those Goals
+What makes Spotify’s Discover Weekly playlist great is that it does not play songs that a user has ever listened to before (on Spotify). In order to make it more engaging, I would recommend that create a couple of different genre Discover Playlists, as I imagine some users, like me, listen to a cross of multiple music genres, and the 30 songs weekly tend to focus on one genre. By applying the algorithm Spotify developed for the 6 Daily Mix personalize playlists, Spotify could create a couple of different Discover Weekly playlists by genre for a user. 
+
+
+[^1]: http://blog.galvanize.com/spotify-discover-weekly-data-science/
+[^2]: http://blogs.cornell.edu/info4220/2016/03/18/spotify-recommendation-matching-algorithm/
+[^3]: https://press.spotify.com/us/about/
